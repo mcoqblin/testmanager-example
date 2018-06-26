@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :features
-  resources :tests
+  namespace :api do
+    resources :features
+    resources :tests
+  end
+
   mount_ember_app :frontend, to: "/"
 end
