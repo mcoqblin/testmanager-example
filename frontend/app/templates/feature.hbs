@@ -1,5 +1,7 @@
 Showing feature "{{model.name}}" (ID {{model.id}})
 <br><br>
+{{#link-to 'features'}}Back to features list{{/link-to}}
+<br><br>
 
 {{#each model.tests as |test|}}
     <br>{{test.name}} (ID {{test.id}}) / State: {{test.state}}
