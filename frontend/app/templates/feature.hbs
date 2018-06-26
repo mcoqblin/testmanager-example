@@ -1,0 +1,8 @@
+Showing feature "{{model.name}}" (ID {{model.id}})
+<br><br>
+
+{{#each model.tests as |test|}}
+    <br>{{test.name}} (ID {{test.id}}) / State: {{test.state}}
+{{/each}}
+
+{{outlet}}

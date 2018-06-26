@@ -1,0 +1,8 @@
+List of features
+<br><br>
+
+{{#each model as |feature|}}
+    <br>{{#link-to "feature" feature.id}}{{feature.name}} (ID {{feature.id}}){{/link-to}}
+{{/each}}
+
+{{outlet}}
