@@ -10,7 +10,7 @@
     <th>Status</th>
 </tr>
 {{#each model.tests as |test|}}
-<tr>
+<tr class={{test-status-cssclass test.state}}>
     <td>{{test.name}}</td>
     <td>{{test.state}}</td>
 </tr>
