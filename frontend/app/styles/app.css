@@ -1,0 +1,81 @@
+body {
+    background-color: #B0E0E6;
+    font-family: Verdana, sans-serif;
+    font-size: 100%;
+}
+
+.page-content {
+    width: 800px;
+    margin: 25px auto 75px;
+}
+
+.title {
+    font-size: 2.5em;
+}
+
+.list {
+    font-size: 1em;
+    padding-top: 25px;
+}
+
+.list table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.list table th, .list table td {
+    padding: 8px;
+}
+
+.list table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    color: #FFFFFF;
+    background-color: #003AAA;
+}
+
+.list table td {
+    color: #000000;
+}
+
+.list table tr.feature-entry {
+    background-color: #A0D0FF;
+}
+
+.list table td:first-child {
+    width: 80%;
+}
+
+.list table th:last-child, .list table td:last-child {
+    text-align: center;
+}
+
+a.feature-list-link:link, a.feature-list-link:visited {
+    color: #000000;
+    background-color: #A0D0FF;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+a.feature-list-link:hover, a.feature-list-link:active {
+    background-color: #80B0DD;
+}
+
+a.feature-list-link {
+    padding: 8px;
+}
+
+.list table tr.test-undefined {
+    background-color: #AAAAAA;
+}
+
+.list table tr.test-passed {
+    background-color: #88FF88;
+}
+
+.list table tr.test-failed {
+    background-color: #FF8888;
+}

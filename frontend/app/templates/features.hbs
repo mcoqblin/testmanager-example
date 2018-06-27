@@ -1,8 +1,22 @@
-List of features
-<br><br>
+<div class="title">List of features</div>
 
+<div class="list">
+{{#if model}}
+<table>
+<tr>
+    <th>Feature name</th>
+    <th>Tests</th>
+</tr>
 {{#each model as |feature|}}
-    <br>{{#link-to "feature" feature.id}}{{feature.name}} (ID {{feature.id}}){{/link-to}}
+<tr class="feature-entry">
+    <td>{{#link-to "feature" feature.id class="feature-list-link"}}{{feature.name}}{{/link-to}}</td>
+    <td>{{feature.tests.length}}</td>
+</tr>
 {{/each}}
+</table>
+{{else}}
+    Sorry my dude, no features to show.
+{{/if}}
+</div>
 
 {{outlet}}

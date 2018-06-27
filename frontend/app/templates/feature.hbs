@@ -1,10 +1,24 @@
-Showing feature "{{model.name}}" (ID {{model.id}})
-<br><br>
-{{#link-to 'features'}}Back to features list{{/link-to}}
-<br><br>
+<div class="title">{{model.name}}</div>
 
+{{#link-to 'features'}}Back to features list{{/link-to}}
+
+<div class="list">
+{{#if model}}
+<table>
+<tr>
+    <th>Test name</th>
+    <th>Status</th>
+</tr>
 {{#each model.tests as |test|}}
-    <br>{{test.name}} (ID {{test.id}}) / State: {{test.state}}
+<tr>
+    <td>{{test.name}}</td>
+    <td>{{test.state}}</td>
+</tr>
 {{/each}}
+</table>
+{{else}}
+    This feature contains no tests.
+{{/if}}
+</div>
 
 {{outlet}}
