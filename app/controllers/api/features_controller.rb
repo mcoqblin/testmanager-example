@@ -12,39 +12,32 @@ class Api::FeaturesController < ApplicationController
     render :json => @feature
   end
 
-  # GET /features/new
-  def new
-    @feature = Feature.new
-  end
-
-  # GET /features/1/edit
-  def edit
-  end
-
   # POST /features
   def create
     @feature = Feature.new(feature_params)
-
     if @feature.save
-      redirect_to @feature, notice: 'Feature was successfully created.'
+      render :json => @feature
     else
-      render :new
+      render :json => "CREATE FAILURE", status: 404
     end
   end
 
   # PATCH/PUT /features/1
   def update
     if @feature.update(feature_params)
-      redirect_to @feature, notice: 'Feature was successfully updated.'
+      render :json => @feature
     else
-      render :edit
+      render :json => @feature, status: 404
     end
   end
 
   # DELETE /features/1
   def destroy
-    @feature.destroy
-    redirect_to features_url, notice: 'Feature was successfully destroyed.'
+    if @feature.destroy
+      render :json => "DELETE SUCCESS", status: 204
+    else
+      render :json => "DELETE FAILURE", status: 404
+    end
   end
 
   private
@@ -55,8 +48,7 @@ class Api::FeaturesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def feature_params
-      #params.require(:feature).permit(:name)
-      #params.require(:data).require(:attributes).permit(:name)
       ActiveModelSerializers::Deserialization.jsonapi_parse(params)
+      params.require(:data).require(:attributes).permit(:name)
     end
 end
