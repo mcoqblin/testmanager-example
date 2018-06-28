@@ -14,9 +14,7 @@
     <td>{{test.name}}</td>
     <td>{{test-status
         id=test.id
-        isStatusUndefined=test.isStatusUndefined
-        isStatusPassed=test.isStatusPassed
-        isStatusFailed=test.isStatusFailed
+        status=test.validStatus
         valuesForStatus=valuesForStatus
         testStatusChanged=(action "testStatusChanged")}}</td>
 </tr>

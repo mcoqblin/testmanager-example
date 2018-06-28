@@ -43,20 +43,5 @@ export default DS.Model.extend({
   cssForStatus: computed('validStatus', function() {
     let status = this.get('validStatus');
     return cssForStatus[status];
-  }),
-
-  isStatusUndefined: computed('validStatus', function() {
-    let status = this.get('validStatus');
-    return (status === TEST_STATUS_UNDEFINED);
-  }),
-
-  isStatusPassed: computed('validStatus', function() {
-    let status = this.get('validStatus');
-    return (status === TEST_STATUS_PASSED);
-  }),
-  
-  isStatusFailed: computed('validStatus', function() {
-    let status = this.get('validStatus');
-    return (status === TEST_STATUS_FAILED);
   })
 });

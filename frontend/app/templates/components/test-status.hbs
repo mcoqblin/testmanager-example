@@ -1,15 +1,15 @@
 <select onchange={{action (action "testStatusChanged" id) value="target.value"}}>
-{{#if isStatusUndefined}}
+{{#if (equals status valuesForStatus.statusUndefined)}}
     <option value={{valuesForStatus.statusUndefined}} selected>Undefined</option>
 {{else}}
     <option value={{valuesForStatus.statusUndefined}}>Undefined</option>
 {{/if}}
-{{#if isStatusPassed}}
+{{#if (equals status valuesForStatus.statusPassed)}}
     <option value={{valuesForStatus.statusPassed}} selected>Passed</option>
 {{else}}
     <option value={{valuesForStatus.statusPassed}}>Passed</option>
 {{/if}}
-{{#if isStatusFailed}}
+{{#if (equals status valuesForStatus.statusFailed)}}
     <option value={{valuesForStatus.statusFailed}} selected>Failed</option>
 {{else}}
     <option value={{valuesForStatus.statusFailed}}>Failed</option>
