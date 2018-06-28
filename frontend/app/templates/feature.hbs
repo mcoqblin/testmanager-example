@@ -1,6 +1,6 @@
 <div class="title">{{model.name}}</div>
 
-{{#link-to 'features'}}Back to features list{{/link-to}}
+{{#link-to "features"}}Back to features list{{/link-to}}
 
 <div class="list">
 {{#if model}}
@@ -12,7 +12,7 @@
 {{#each model.tests as |test|}}
 <tr class={{test-status-cssclass test.state}}>
     <td>{{test.name}}</td>
-    <td>{{test-status state=test.state}}</td>
+    <td>{{test-status id=test.id state=test.state}}</td>
 </tr>
 {{/each}}
 </table>
