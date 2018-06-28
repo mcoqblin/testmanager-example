@@ -1,3 +1,5 @@
+/* Common styles to all routes */
+
 body {
     background-color: #B0E0E6;
     font-family: Verdana, sans-serif;
@@ -25,6 +27,7 @@ body {
 
 .list table th, .list table td {
     padding: 8px;
+    border-bottom: 10px solid #B0E0E6;
 }
 
 .list table th {
@@ -39,16 +42,20 @@ body {
     color: #000000;
 }
 
-.list table tr.feature-entry {
-    background-color: #A0D0FF;
-}
-
 .list table td:first-child {
     width: 80%;
 }
 
 .list table th:last-child, .list table td:last-child {
     text-align: center;
+}
+
+
+
+/* Styles for the list of features */
+
+.list table tr.feature-entry {
+    background-color: #A0D0FF;
 }
 
 a.feature-list-link:link, a.feature-list-link:visited {
@@ -67,6 +74,10 @@ a.feature-list-link:hover, a.feature-list-link:active {
 a.feature-list-link {
     padding: 8px;
 }
+
+
+
+/* Styles for the list of tests in a feature */
 
 .list table tr.test-undefined {
     background-color: #AAAAAA;
