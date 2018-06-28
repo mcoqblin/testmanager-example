@@ -10,9 +10,15 @@
     <th>Status</th>
 </tr>
 {{#each model.tests as |test|}}
-<tr class={{test-status-cssclass test.state}}>
+<tr class={{test.cssForStatus}}>
     <td>{{test.name}}</td>
-    <td>{{test-status id=test.id state=test.state}}</td>
+    <td>{{test-status
+        id=test.id
+        isStatusUndefined=test.isStatusUndefined
+        isStatusPassed=test.isStatusPassed
+        isStatusFailed=test.isStatusFailed
+        valuesForStatus=valuesForStatus
+        testStatusChanged=(action "testStatusChanged")}}</td>
 </tr>
 {{/each}}
 </table>
