@@ -1,4 +1,4 @@
-<select onchange={{action (action "testStatusChanged" id) value="target.value"}}>
+<select onchange={{action (action "onTestStatusChanged" id) value="target.value"}}>
 {{#if (equals status valueForStatus.statusUndefined)}}
     <option value={{valueForStatus.statusUndefined}} selected>Undefined</option>
 {{else}}

@@ -6,11 +6,16 @@
 <tr>
     <th>Feature name</th>
     <th>Tests</th>
+    <th>Actions</th>
 </tr>
 {{#each model as |feature|}}
 <tr class="feature-entry">
     <td>{{#link-to "feature" feature.id class="feature-list-link"}}{{feature.name}}{{/link-to}}</td>
     <td>{{feature.tests.length}}</td>
+    <td>
+        <input type="button" value="Rename" class="action-button" onclick={{action "onRenameFeature" feature.id feature.name}}>
+        <input type="button" value="Delete" class="action-button" onclick={{action "onDeleteFeature" feature.id}}>
+    </td>
 </tr>
 {{/each}}
 </table>

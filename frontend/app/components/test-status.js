@@ -5,8 +5,8 @@ export default Component.extend({
     valueForStatus: alias('status-tools.valueForStatus'),
     
     actions: {
-        testStatusChanged(testId, value) {
-            this.get('testStatusChanged')(testId,value);
+        onTestStatusChanged(testId, value) {
+            this.get('onTestStatusChanged')(testId,value);
         }
     }
 });

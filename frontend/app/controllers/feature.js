@@ -2,8 +2,16 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
     actions: {
-        testStatusChanged(testId, status) {
+        onTestStatusChanged(testId, status) {
             this.changeTestStatus(testId, status);
+        },
+
+        onRenameTest(testId, name) {
+            this.renameTest(testId, name);
+        },
+
+        onDeleteTest(testId) {
+            this.deleteTest(testId);
         }
     },
 
@@ -25,5 +33,15 @@ export default Controller.extend({
         }).catch(function(error) {
             logger.error('There was an error fetching test. Test ID is probably invalid.');
         });
+    },
+
+    renameTest(testId, name) {
+        let logger = this.get('logger');
+        logger.log('Renaming Test ID ' + testId + ' to "' + name + '".');
+    },
+
+    deleteTest(testId) {
+        let logger = this.get('logger');
+        logger.log('Deleting Test ID ' + testId + '.');
     }
 });

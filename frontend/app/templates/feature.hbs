@@ -8,6 +8,7 @@
 <tr>
     <th>Test name</th>
     <th>Status</th>
+    <th>Actions</th>
 </tr>
 {{#each model.tests as |test|}}
 <tr class={{test.cssForStatus}}>
@@ -15,7 +16,11 @@
     <td>{{test-status
         id=test.id
         status=test.validStatus
-        testStatusChanged=(action "testStatusChanged")}}</td>
+        onTestStatusChanged=(action "onTestStatusChanged")}}</td>
+    <td>
+        <input type="button" value="Rename" class="action-button" onclick={{action "onRenameTest" test.id test.name}}>
+        <input type="button" value="Delete" class="action-button" onclick={{action "onDeleteTest" test.id}}>
+    </td>
 </tr>
 {{/each}}
 </table>

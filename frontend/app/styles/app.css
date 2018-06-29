@@ -59,8 +59,21 @@ body {
     width: 80%;
 }
 
-.list table th:last-child, .list table td:last-child {
+.list table th:not(:first-child), .list table td:not(:first-child) {
     text-align: center;
+}
+
+.action-button {
+    width: 50px;
+    height: 16px;
+    color: #000000;
+    background-color: #FFFFFF;
+    font-size: 0.625em;
+    text-align: center;
+    padding: 0px;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 
