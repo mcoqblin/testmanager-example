@@ -2,6 +2,8 @@
 
 <div class="title">{{model.name}}</div>
 
+<input type="button" value="Create Test" class="create-button" onclick={{action "onCreateTest" model.id ""}}>
+
 <div class="list">
 {{#if model}}
 <table>

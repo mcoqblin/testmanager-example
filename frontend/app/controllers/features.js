@@ -2,6 +2,10 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
     actions: {
+        onCreateFeature(name) {
+            this.createFeature(name);
+        },
+        
         onRenameFeature(featureId, name) {
             this.renameFeature(featureId, name);
         },
@@ -9,6 +13,11 @@ export default Controller.extend({
         onDeleteFeature(featureId) {
             this.deleteFeature(featureId);
         }
+    },
+
+    createFeature(name) {
+        let logger = this.get('logger');
+        logger.log('Creating Feature "' + name + '".');
     },
 
     renameFeature(featureId, name) {

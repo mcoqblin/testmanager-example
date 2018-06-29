@@ -6,6 +6,10 @@ export default Controller.extend({
             this.changeTestStatus(testId, status);
         },
 
+        onCreateTest(featureId, name) {
+            this.createTest(featureId, name);
+        },
+
         onRenameTest(testId, name) {
             this.renameTest(testId, name);
         },
@@ -33,6 +37,11 @@ export default Controller.extend({
         }).catch(function(error) {
             logger.error('There was an error fetching test. Test ID is probably invalid.');
         });
+    },
+
+    createTest(featureId, name) {
+        let logger = this.get('logger');
+        logger.log('Creating Test "' + name + '" for Feature ID ' + featureId + '.');
     },
 
     renameTest(testId, name) {
