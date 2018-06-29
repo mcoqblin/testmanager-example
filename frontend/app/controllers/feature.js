@@ -21,22 +21,40 @@ export default Controller.extend({
 
     changeTestStatus(testId, status) {
         let logger = this.get('logger');
+
         let statusTools = this.get('status-tools');
         
         status = statusTools.validateStatus(status);
-        
+
+        // Safe version, always fetching the test, instead of assuming it's valid
         this.get('store').findRecord('test',testId).then(function(test) {
             test.set('state', status);
             test.save().then(function(test) {
                 logger.success(test.get('name') + ' was updated to '
                                 + test.get('textForStatus') + '.');
-            }).catch(function(error) {
-                logger.error('There was an error updating test. Rolling back.');
+            }).catch(function() {
+                logger.failure('There was an error updating test. Rolling back.');
                 test.rollbackAttributes();
             });
-        }).catch(function(error) {
-            logger.error('There was an error fetching test. Test ID is probably invalid.');
+        }).catch(function() {
+            logger.failure('There was an error fetching test. Test ID is probably invalid.');
         });
+        
+        // Unsafe but faster version
+        /*let test = this.get('store').peekRecord('test',testId);
+        if (test === null) {
+            logger.failure('There was an error fetching test. Test ID is probably invalid.');
+            return;
+        }
+
+        test.set('state', status);
+        test.save().then(function(test) {
+            logger.success(test.get('name') + ' was updated to '
+                            + test.get('textForStatus') + '.');
+        }).catch(function() {
+            logger.failure('There was an error updating test. Rolling back.');
+            test.rollbackAttributes();
+        });*/
     },
 
     createTest(featureId, name) {
