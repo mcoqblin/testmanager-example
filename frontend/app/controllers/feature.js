@@ -11,6 +11,8 @@ export default Controller.extend({
     },
 
     changeTestStatus(testId, status) {
+        status = Status.validateStatus(status);
+        
         this.get('store').findRecord('test',testId).then(function(test) {
             test.set('state', status);
             test.save().catch(function(error) {

@@ -17,7 +17,12 @@ cssForStatus[TEST_STATUS_PASSED] = 'test-passed';
 cssForStatus[TEST_STATUS_FAILED] = 'test-failed';
 
 export class Status {
+
   static validateStatus(status) {
+    status = parseInt(status);
+    if (isNaN(status))
+      status = 0;
+    
     if ((status === TEST_STATUS_UNDEFINED)
         || (status === TEST_STATUS_PASSED)
         || (status === TEST_STATUS_FAILED)) {
@@ -25,6 +30,7 @@ export class Status {
     }
     return TEST_STATUS_UNDEFINED;
   }
+  
   static valuesForStatus() {
     return valuesForStatus;
   }
