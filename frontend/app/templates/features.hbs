@@ -1,6 +1,7 @@
 <div class="title">Features</div>
 
-<input type="button" value="Create Feature" class="create-button" onclick={{action "onCreateFeature" ""}}>
+{{input type="text" placeholder="Feature name" value=newName}}
+<button type="button" class="create-button" onclick={{action "onCreateFeature" newName}}>Create Feature</button>
 
 <div class="list">
 {{#if model}}
@@ -15,8 +16,8 @@
     <td>{{#link-to "feature" feature.id class="feature-list-link"}}{{feature.name}}{{/link-to}}</td>
     <td>{{feature.tests.length}}</td>
     <td>
-        <input type="button" value="Rename" class="action-button" onclick={{action "onRenameFeature" feature.id feature.name}}>
-        <input type="button" value="Delete" class="action-button" onclick={{action "onDeleteFeature" feature.id}}>
+        <button type="button" class="action-button" onclick={{action "onRenameFeature" feature.id newName}}>Rename</button>
+        <button type="button" class="action-button" onclick={{action "onDeleteFeature" feature.id}}>Delete</button>
     </td>
 </tr>
 {{/each}}

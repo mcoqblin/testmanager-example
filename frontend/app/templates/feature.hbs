@@ -2,7 +2,8 @@
 
 <div class="title">{{model.name}}</div>
 
-<input type="button" value="Create Test" class="create-button" onclick={{action "onCreateTest" model.id ""}}>
+{{input type="text" placeholder="Test name" value=newName}}
+<button type="button" class="create-button" onclick={{action "onCreateTest" model.id newName}}>Create Test</button>
 
 <div class="list">
 {{#if model}}
@@ -20,8 +21,8 @@
         status=test.validStatus
         onTestStatusChanged=(action "onTestStatusChanged")}}</td>
     <td>
-        <input type="button" value="Rename" class="action-button" onclick={{action "onRenameTest" test.id test.name}}>
-        <input type="button" value="Delete" class="action-button" onclick={{action "onDeleteTest" test.id}}>
+        <button type="button" class="action-button" onclick={{action "onRenameTest" test.id newName}}>Rename</button>
+        <button type="button" class="action-button" onclick={{action "onDeleteTest" test.id}}>Delete</button>
     </td>
 </tr>
 {{/each}}
