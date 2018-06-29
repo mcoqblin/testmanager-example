@@ -11,16 +11,19 @@ export default Controller.extend({
     },
 
     changeTestStatus(testId, status) {
+        let logger = this.get('logger');
         status = Status.validateStatus(status);
         
         this.get('store').findRecord('test',testId).then(function(test) {
             test.set('state', status);
-            test.save().catch(function(error) {
-                console.error('There was an error updating test. Rolling back.');
+            test.save().then(function(test) {
+                logger.success(test.get('name') + ' was updated.');
+            }).catch(function(error) {
+                logger.error('There was an error updating test. Rolling back.');
                 test.rollbackAttributes();
             });
         }).catch(function(error) {
-            console.error('There was an error fetching test. Test ID is probably invalid.');
+            logger.error('There was an error fetching test. Test ID is probably invalid.');
         });
     }
 });
