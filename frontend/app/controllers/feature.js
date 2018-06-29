@@ -1,9 +1,6 @@
 import Controller from '@ember/controller';
-import { Status } from '../models/test';
 
 export default Controller.extend({
-    valuesForStatus: Status.valuesForStatus(),
-    
     actions: {
         testStatusChanged(testId, status) {
             this.changeTestStatus(testId, status);
@@ -12,12 +9,15 @@ export default Controller.extend({
 
     changeTestStatus(testId, status) {
         let logger = this.get('logger');
-        status = Status.validateStatus(status);
+        let statusTools = this.get('status-tools');
+        
+        status = statusTools.validateStatus(status);
         
         this.get('store').findRecord('test',testId).then(function(test) {
             test.set('state', status);
             test.save().then(function(test) {
-                logger.success(test.get('name') + ' was updated.');
+                logger.success(test.get('name') + ' was updated to '
+                                + test.get('textForStatus') + '.');
             }).catch(function(error) {
                 logger.error('There was an error updating test. Rolling back.');
                 test.rollbackAttributes();
