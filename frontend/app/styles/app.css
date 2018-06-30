@@ -33,6 +33,12 @@ body {
     padding-top: 25px;
 }
 
+.list .no-content {
+    width: 100%;
+    text-align: center;
+    padding-top: 32px;
+}
+
 .list table {
     border-collapse: collapse;
     width: 100%;

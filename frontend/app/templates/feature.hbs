@@ -6,7 +6,7 @@
 <button type="button" class="create-button" onclick={{action "onCreateTest" model.id newName}}>Create Test</button>
 
 <div class="list">
-{{#if model}}
+{{#if model.tests}}
 <table>
 <tr>
     <th>Test name</th>
@@ -28,7 +28,7 @@
 {{/each}}
 </table>
 {{else}}
-    This feature contains no tests.
+<div class="no-content">This feature contains no tests.</div>
 {{/if}}
 </div>
 

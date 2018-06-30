@@ -33,7 +33,7 @@ export default Controller.extend({
         status = statusTools.validateStatus(status);
 
         // Safe version, always fetching the test, instead of assuming it's valid
-        this.get('store').findRecord('test',testId).then(function(test) {
+        this.get('store').findRecord('test', testId).then(function(test) {
             test.set('state', status);
             test.save().then(function(test) {
                 logger.success('Test "' + test.get('name') + '" status was updated to '
@@ -75,7 +75,7 @@ export default Controller.extend({
             return;
         }
         
-        this.get('store').findRecord('feature',featureId).then(function(feature) {
+        this.get('store').findRecord('feature', featureId).then(function(feature) {
             let test = store.createRecord('test', { name: name, state: defaultStatus, feature: feature });
             
             test.save().then(function(test) {
@@ -98,7 +98,7 @@ export default Controller.extend({
             return;
         }
         
-        this.get('store').findRecord('test',testId).then(function(test) {
+        this.get('store').findRecord('test', testId).then(function(test) {
             let oldName = test.get('name');
 
             test.set('name', name);
@@ -116,5 +116,18 @@ export default Controller.extend({
 
     deleteTest(testId) {
         let logger = this.get('logger');
+
+        this.get('store').findRecord('test', testId, { backgroundReload: false }).then(function(test) {
+            let oldName = test.get('name');
+
+            test.destroyRecord().then(function(test) {
+                logger.success('Test "' + oldName + '" was deleted.');
+            }).catch(function() {
+                logger.failure('There was an error when deleting test "' + oldName + '".');
+                test.rollbackAttributes();
+            });
+        }).catch(function() {
+            logger.failure('There was an error when deleting test: Test is invalid.');
+        });
     }
 });

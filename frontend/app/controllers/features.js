@@ -50,9 +50,9 @@ export default Controller.extend({
             return;
         }
 
-        this.get('store').findRecord('feature',featureId).then(function(feature) {
+        this.get('store').findRecord('feature', featureId).then(function(feature) {
             let oldName = feature.get('name');
-            
+
             feature.set('name', name);
             feature.save().then(function(feature) {
                 logger.success('Feature "' + oldName + '" was renamed to "'
@@ -68,5 +68,24 @@ export default Controller.extend({
 
     deleteFeature(featureId) {
         let logger = this.get('logger');
+
+        this.get('store').findRecord('feature', featureId, { backgroundReload: false, include: 'tests' })
+                            .then(function(feature) {
+            let oldName = feature.get('name');
+
+            /*feature.get('tests').toArray().forEach(test => {
+                logger.log('Deleting test: "' + test.get('name') + '".');
+                test.destroyRecord();
+            });*/
+
+            feature.destroyRecord().then(function(feature) {
+                logger.success('Feature "' + oldName + '" was deleted.');
+            }).catch(function() {
+                logger.failure('There was an error when deleting feature "' + oldName + '".');
+                feature.rollbackAttributes();
+            });
+        }).catch(function() {
+            logger.failure('There was an error when deleting feature: Feature is invalid.');
+        });
     }
 });
