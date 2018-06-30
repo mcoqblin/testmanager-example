@@ -1,4 +1,4 @@
-import EmberObject, { computed } from '@ember/object';
+import EmberObject from '@ember/object';
 
 const TEST_STATUS_UNDEFINED = 0;
 const TEST_STATUS_PASSED =    1;
@@ -21,11 +21,14 @@ const valueForStatus = {
 };
 
 export default EmberObject.extend({
+  defaultStatus: TEST_STATUS_UNDEFINED,
+  valueForStatus: valueForStatus,
+
   validateStatus(status) {
     status = parseInt(status);
 
     if (isNaN(status))
-      return TEST_STATUS_UNDEFINED;
+      return this.defaultStatus;
     
     if ((status === TEST_STATUS_UNDEFINED)
         || (status === TEST_STATUS_PASSED)
@@ -33,7 +36,7 @@ export default EmberObject.extend({
       return status;
     }
 
-    return TEST_STATUS_UNDEFINED;
+    return this.defaultStatus;
   },
 
   cssForStatus(status) {
@@ -44,7 +47,5 @@ export default EmberObject.extend({
   textForStatus(status) {
     status = this.validateStatus(status);
     return textForStatus[status];
-  },
-  
-  valueForStatus: valueForStatus
+  }
 });

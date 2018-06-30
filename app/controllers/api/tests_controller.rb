@@ -49,6 +49,6 @@ class Api::TestsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def test_params
       ActiveModelSerializers::Deserialization.jsonapi_parse(params)
-      params.require(:data).require(:attributes).permit(:name, :state, :feature_id)
+      #params.require(:data).require(:attributes).permit(:name, :state, :feature_id)
     end
 end

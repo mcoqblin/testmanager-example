@@ -49,6 +49,6 @@ class Api::FeaturesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def feature_params
       ActiveModelSerializers::Deserialization.jsonapi_parse(params)
-      params.require(:data).require(:attributes).permit(:name)
+      #params.require(:data).require(:attributes).permit(:name)
     end
 end
