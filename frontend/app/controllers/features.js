@@ -73,10 +73,9 @@ export default Controller.extend({
                             .then(function(feature) {
             let oldName = feature.get('name');
 
-            /*feature.get('tests').toArray().forEach(test => {
-                logger.log('Deleting test: "' + test.get('name') + '".');
-                test.destroyRecord();
-            });*/
+            feature.get('tests').toArray().forEach(test => {
+                test.unloadRecord();
+            });
 
             feature.destroyRecord().then(function(feature) {
                 logger.success('Feature "' + oldName + '" was deleted.');
