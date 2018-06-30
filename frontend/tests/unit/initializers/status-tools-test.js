@@ -1,11 +1,11 @@
 import Application from '@ember/application';
 
-import { initialize } from 'frontend/initializers/status';
+import { initialize } from 'frontend/initializers/status-tools';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { run } from '@ember/runloop';
 
-module('Unit | Initializer | status', function(hooks) {
+module('Unit | Initializer | status-tools', function(hooks) {
   setupTest(hooks);
 
   hooks.beforeEach(function() {
