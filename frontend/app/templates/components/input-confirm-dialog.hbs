@@ -1,6 +1,3 @@
-{{#confirm-dialog
-    onConfirm=(action "onConfirm")
-    isShown=info.isShown
-    info=info}}
-{{input type="text" placeholder=info.text value=info.value}}
+{{#confirm-dialog onConfirm=(action "onConfirm")}}
+{{input type="text" placeholder=info.text value=data.value}}
 {{/confirm-dialog}}

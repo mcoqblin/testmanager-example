@@ -1,10 +1,12 @@
 import Component from '@ember/component';
+import { alias } from '@ember/object/computed';
 
 export default Component.extend({
     classNames: ['dialog'],
     classNameBindings: ['isShown:show-dialog:hide-dialog'],
 
-    isShown: true,
+    isShown: alias('confirm-dialog.isShown'),
+    info: alias('confirm-dialog.info'),
 
     showDialog() {
         this.set('isShown', true);

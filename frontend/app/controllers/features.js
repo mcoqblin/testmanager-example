@@ -1,23 +1,13 @@
 import Controller from '@ember/controller';
+import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
-    dialog: {
-        component: 'text-confirm-dialog',
-        action: null,
-        info: {
-            id: 0,
-            isShown: false,
-            title: '',
-            text: '',
-            value: '',
-            okButton: '',
-            cancelButton: ''
-        }
-    },
+    dialogComponent: alias('confirm-dialog.component'),
+    dialogAction: alias('confirm-dialog.action'),
 
     init() {
         this._super(arguments);
-        this.set('dialog.action', this.get('onCreateFeature'));
+        this.set('dialogAction', this.get('onCreateFeature'));
     },
 
     onCreateFeature(name) {
@@ -33,57 +23,31 @@ export default Controller.extend({
         this.get('logger').log('Reached onDeleteFeature with ID: ' + featureId);
     },
     
-    showDialog() {
-        this.set('dialog.info.isShown', true);
-    },
-
-    hideDialog() {
-        this.set('dialog.info.isShown', false);
-    },
-    
     createCreateDialog() {
-        this.hideDialog();
-        this.set('dialog.component', 'input-confirm-dialog');
-        this.set('dialog.action', this.onCreateFeature); // this.createFeature
-        this.set('dialog.info.id', 0);
-        this.set('dialog.info.title', 'Create a new feature');
-        this.set('dialog.info.text', 'Feature name');
-        this.set('dialog.info.value', '');
-        this.set('dialog.info.okButton', 'OK');
-        this.set('dialog.info.cancelButton', 'Cancel');
-        this.showDialog();
+        this.get('confirm-dialog').createCreateDialog(this.onCreateFeature,
+            'Create a new feature',
+            'Feature name'
+        );
     },
     
     createRenameDialog(featureId) {
-        this.hideDialog();
-
         this.get('store').findRecord('feature', featureId).then(feature => {
-            this.set('dialog.component', 'input-confirm-dialog');
-            this.set('dialog.action', this.onRenameFeature); // this.renameFeature
-            this.set('dialog.info.id', featureId);
-            this.set('dialog.info.title', 'Rename feature');
-            this.set('dialog.info.text', 'Feature name');
-            this.set('dialog.info.value', feature.get('name'));
-            this.set('dialog.info.okButton', 'OK');
-            this.set('dialog.info.cancelButton', 'Cancel');
-            this.showDialog();
+            this.get('confirm-dialog').createRenameDialog(this.onRenameFeature,
+                'Rename feature',
+                'Feature name',
+                featureId,
+                feature.get('name')
+            );
         });
     },
     
     createDeleteDialog(featureId) {
-        this.hideDialog();
-
         this.get('store').findRecord('feature', featureId).then(feature => {
-            this.set('dialog.component', 'text-confirm-dialog');
-            this.set('dialog.action', this.onDeleteFeature); // this.deleteFeature
-            this.set('dialog.info.id', featureId);
-            this.set('dialog.info.title', 'Delete feature');
-            this.set('dialog.info.text', 'This will remove "'
-                        + feature.get('name') + '". Continue?');
-            this.set('dialog.info.value', '');
-            this.set('dialog.info.okButton', 'OK');
-            this.set('dialog.info.cancelButton', 'Cancel');
-            this.showDialog();
+            this.get('confirm-dialog').createDeleteDialog(this.onDeleteFeature,
+                'Delete feature',
+                'This will remove "' + feature.get('name') + '". Continue?',
+                featureId
+            );
         });
     },
 
