@@ -1,9 +1,11 @@
 <div class="title">Features</div>
 
 {{input type="text" placeholder="Feature name" value=newName}}
-<button type="button" class="create-button" onclick={{action "onCreateFeature" newName}}>Create Feature</button>
+<button type="button" class="create-button" onclick={{action "onCreateFeature"}}>Create Feature</button>
 
 {{log-window}}
+
+{{component dialog.component onConfirm=(action dialog.action) info=dialog.info}}
 
 <div class="list">
 {{#if model}}
@@ -18,7 +20,7 @@
     <td>{{#link-to "feature" feature.id class="feature-list-link"}}{{feature.name}}{{/link-to}}</td>
     <td>{{feature.tests.length}}</td>
     <td>
-        <button type="button" class="action-button" onclick={{action "onRenameFeature" feature.id newName}}>Rename</button>
+        <button type="button" class="action-button" onclick={{action "onRenameFeature" feature.id}}>Rename</button>
         <button type="button" class="action-button" onclick={{action "onDeleteFeature" feature.id}}>Delete</button>
     </td>
 </tr>

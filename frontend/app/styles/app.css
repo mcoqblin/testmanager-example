@@ -186,3 +186,23 @@ a.feature-list-link {
     text-decoration: underline;
     cursor: pointer;
 }
+
+
+/* Styles for the dialog windows */
+
+.dialog {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 500px;
+    height: 200px;
+    background-color: #003AAA;
+}
+
+.dialog.show-dialog {
+    display: block;
+}
+
+.dialog.hide-dialog {
+    display: none;
+}

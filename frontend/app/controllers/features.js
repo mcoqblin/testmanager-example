@@ -1,8 +1,106 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
+    dialog: {
+        component: 'text-confirm-dialog',
+        action: null,
+        info: {
+            id: 0,
+            isShown: false,
+            title: '',
+            text: '',
+            value: '',
+            okButton: '',
+            cancelButton: ''
+        }
+    },
+
+    init() {
+        this._super(arguments);
+        this.set('dialog.action', this.get('onCreateFeature'));
+    },
+
+    onCreateFeature(name) {
+        this.get('logger').log('Reached onCreateFeature with name: ' + name);
+    },
+
+    onRenameFeature(name, featureId) {
+        this.get('logger').log('Reached onRenameFeature with ID: ' + featureId
+                                + ' and new name: ' + name);
+    },
+
+    onDeleteFeature(featureId) {
+        this.get('logger').log('Reached onDeleteFeature with ID: ' + featureId);
+    },
+    
+    showDialog() {
+        this.set('dialog.info.isShown', true);
+    },
+
+    hideDialog() {
+        this.set('dialog.info.isShown', false);
+    },
+    
+    createCreateDialog() {
+        this.hideDialog();
+        this.set('dialog.component', 'input-confirm-dialog');
+        this.set('dialog.action', this.onCreateFeature); // this.createFeature
+        this.set('dialog.info.id', 0);
+        this.set('dialog.info.title', 'Create a new feature');
+        this.set('dialog.info.text', 'Feature name');
+        this.set('dialog.info.value', '');
+        this.set('dialog.info.okButton', 'OK');
+        this.set('dialog.info.cancelButton', 'Cancel');
+        this.showDialog();
+    },
+    
+    createRenameDialog(featureId) {
+        this.hideDialog();
+
+        this.get('store').findRecord('feature', featureId).then(feature => {
+            this.set('dialog.component', 'input-confirm-dialog');
+            this.set('dialog.action', this.onRenameFeature); // this.renameFeature
+            this.set('dialog.info.id', featureId);
+            this.set('dialog.info.title', 'Rename feature');
+            this.set('dialog.info.text', 'Feature name');
+            this.set('dialog.info.value', feature.get('name'));
+            this.set('dialog.info.okButton', 'OK');
+            this.set('dialog.info.cancelButton', 'Cancel');
+            this.showDialog();
+        });
+    },
+    
+    createDeleteDialog(featureId) {
+        this.hideDialog();
+
+        this.get('store').findRecord('feature', featureId).then(feature => {
+            this.set('dialog.component', 'text-confirm-dialog');
+            this.set('dialog.action', this.onDeleteFeature); // this.deleteFeature
+            this.set('dialog.info.id', featureId);
+            this.set('dialog.info.title', 'Delete feature');
+            this.set('dialog.info.text', 'This will remove "'
+                        + feature.get('name') + '". Continue?');
+            this.set('dialog.info.value', '');
+            this.set('dialog.info.okButton', 'OK');
+            this.set('dialog.info.cancelButton', 'Cancel');
+            this.showDialog();
+        });
+    },
+
     actions: {
-        onCreateFeature(name) {
+        onCreateFeature() {
+            this.createCreateDialog();
+        },
+        
+        onRenameFeature(featureId) {
+            this.createRenameDialog(featureId);
+        },
+        
+        onDeleteFeature(featureId) {
+            this.createDeleteDialog(featureId);
+        },
+
+        /*onCreateFeature(name) {
             this.createFeature(name);
         },
         
@@ -12,6 +110,33 @@ export default Controller.extend({
         
         onDeleteFeature(featureId) {
             this.deleteFeature(featureId);
+        },*/
+
+        onShowTextDialog() {
+            this.set('dialog.component', 'text-confirm-dialog');
+            this.set('dialog.info.title', 'Text Dialog');
+            this.set('dialog.info.text', 'Text Dialog text.');
+            this.set('dialog.info.value', '');
+            this.set('dialog.info.okButton', 'OK');
+            this.set('dialog.info.cancelButton', 'Cancel');
+            this.set('dialog.action', this.onTextDialogConfirmed);
+            this.showDialog();
+        },
+
+        onShowInputDialog() {
+            this.set('dialog.component', 'input-confirm-dialog');
+            this.set('dialog.info.title', 'Input Dialog');
+            this.set('dialog.info.text', 'Input Dialog text.');
+            this.set('dialog.info.value', 'Test');
+            this.set('dialog.info.okButton', 'OK');
+            this.set('dialog.info.cancelButton', 'Cancel');
+            this.set('dialog.action', this.onInputDialogConfirmed);
+            this.showDialog();
+        },
+        
+        onDialogConfirmed() {
+            this.get('logger').log('onDialogConfirmed(): Back in controller. Text was: '
+                                    + this.get('dialog.info.text'));
         }
     },
 
