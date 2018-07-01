@@ -32,21 +32,29 @@ export default Service.extend({
         return (this.get('logStatus') === LOG_STATUS_FAILURE);
     },
 
+    // Will notify observers of a new message even if it is the same as the last one
+    newMessage(message) {
+        if (message === this.get('logMessage'))
+            this.notifyPropertyChange('logMessage');
+        else
+            this.set('logMessage', message);
+    },
+
     log(message) {
         console.log(message);
         this.setStatusToLog();
-        this.set('logMessage', message);
+        this.newMessage(message);
     },
     
     success(message) {
         console.log(message);
         this.setStatusToSuccess();
-        this.set('logMessage', message);
+        this.newMessage(message);
     },
     
     failure(message) {
         console.error(message);
         this.setStatusToFailure();
-        this.set('logMessage', message);
+        this.newMessage(message);
     }
 });

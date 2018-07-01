@@ -5,6 +5,8 @@
 {{input type="text" placeholder="Test name" value=newName}}
 <button type="button" class="create-button" onclick={{action "onCreateTest" model.id newName}}>Create Test</button>
 
+{{log-window}}
+
 <div class="list">
 {{#if model.tests}}
 <table>

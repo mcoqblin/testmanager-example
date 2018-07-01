@@ -12,10 +12,7 @@ export default Controller.extend({
         
         onDeleteFeature(featureId) {
             this.deleteFeature(featureId);
-        },
-        onClick1() { this.get('logger').log('Well.'); },
-        onClick2() { this.get('logger').success('HECK YEAH'); },
-        onClick3() { this.get('logger').failure('NOPE'); }
+        }
     },
 
     createFeature(name) {

@@ -127,15 +127,22 @@ a.feature-list-link {
 /* Styles for the log window */
 
 .log-window {
-    border: 1px solid #000000;
+    border: 2px solid #CCCCCC;
+    background-color: #AAAAAA;
+    color: #444444;
     width: 90%;
     margin: 20px auto 0px;
-    padding: 10px;
-    border-radius: 4px;
-    border-width: 4px;
+    padding: 4px;
+    border-radius: 8px;
     transition-property: opacity background-color border-color color;
-    transition-duration: 0.5s;
+    transition-duration: 0.1s;
     transition-timing-function: linear;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .log-window.log-log {
@@ -157,16 +164,25 @@ a.feature-list-link {
 }
 
 .log-window.show-log {
+    visibility: visible;
     opacity: 1;
 }
 
 .log-window.hide-log {
+    visibility: hidden;
     opacity: 0;
+}
+
+.log-message {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .hide-log-button {
     color: #000000;
     text-align: right;
     font-size: 0.75em;
+    text-decoration: underline;
     cursor: pointer;
 }
