@@ -3,6 +3,13 @@
 {{input type="text" placeholder="Feature name" value=newName}}
 <button type="button" class="create-button" onclick={{action "onCreateFeature" newName}}>Create Feature</button>
 
+{{log-window}}
+
+<button type="button" onclick={{action "onClick1"}}>Log</button>
+<button type="button" onclick={{action "onClick2"}}>Success</button>
+<button type="button" onclick={{action "onClick3"}}>Failure</button>
+
+
 <div class="list">
 {{#if model}}
 <table>

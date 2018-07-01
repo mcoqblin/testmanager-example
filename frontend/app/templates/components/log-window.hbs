@@ -1,0 +1,6 @@
+{{#if logger.logMessage}}
+    {{logger.logMessage}}
+{{else}}
+    No message to show.
+{{/if}}
+<span class="hide-log-button" onclick={{action "onHide"}}>(hide)</span>

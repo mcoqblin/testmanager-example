@@ -3,22 +3,19 @@ import Controller from '@ember/controller';
 export default Controller.extend({
     actions: {
         onCreateFeature(name) {
-            let logger = this.get('logger');
-            logger.log('Creating Feature "' + name + '".');
             this.createFeature(name);
         },
         
         onRenameFeature(featureId, name) {
-            let logger = this.get('logger');
-            logger.log('Renaming Feature ID ' + featureId + ' to "' + name + '".');
             this.renameFeature(featureId, name);
         },
         
         onDeleteFeature(featureId) {
-            let logger = this.get('logger');
-            logger.log('Deleting Feature ID ' + featureId + '.');
             this.deleteFeature(featureId);
-        }
+        },
+        onClick1() { this.get('logger').log('Well.'); },
+        onClick2() { this.get('logger').success('HECK YEAH'); },
+        onClick3() { this.get('logger').failure('NOPE'); }
     },
 
     createFeature(name) {

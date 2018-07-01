@@ -7,20 +7,14 @@ export default Controller.extend({
         },
 
         onCreateTest(featureId, name) {
-            let logger = this.get('logger');
-            logger.log('Creating Test "' + name + '" for Feature ID ' + featureId + '.');
             this.createTest(featureId, name);
         },
 
         onRenameTest(testId, name) {
-            let logger = this.get('logger');
-            logger.log('Renaming Test ID ' + testId + ' to "' + name + '".');
             this.renameTest(testId, name);
         },
 
         onDeleteTest(testId) {
-            let logger = this.get('logger');
-            logger.log('Deleting Test ID ' + testId + '.');
             this.deleteTest(testId);
         }
     },

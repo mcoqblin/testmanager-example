@@ -6,7 +6,7 @@ export default Component.extend({
     
     actions: {
         onTestStatusChanged(testId, value) {
-            this.get('onTestStatusChanged')(testId,value);
+            this.get('onTestStatusChanged')(testId, value);
         }
     }
 });
