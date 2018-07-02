@@ -7,35 +7,20 @@ export default Controller.extend({
     dialogAction: computed('confirm-dialog.action', function() {
         let action = this.get('confirm-dialog.action');
         if (action === null)
-            return this.get('onCreateFeature');
+            return this.get('createFeature');
         return action;
     }),
-
-    onCreateFeature(name) {
-        this.get('logger').log('Reached onCreateFeature with name: ' + name);
-    },
-
-    onRenameFeature(name, featureId) {
-        this.get('logger').log('Reached onRenameFeature with ID: ' + featureId
-                                + ' and new name: ' + name);
-    },
-
-    onDeleteFeature(featureId) {
-        this.get('logger').log('Reached onDeleteFeature with ID: ' + featureId);
-    },
     
     createCreateDialog() {
-        this.get('confirm-dialog').createCreateDialog(this.onCreateFeature,
-            'Create a new feature',
-            'Feature name'
+        this.get('confirm-dialog').createCreateDialog(this.createFeature,
+            'Feature'
         );
     },
     
     createRenameDialog(featureId) {
         this.get('store').findRecord('feature', featureId).then(feature => {
-            this.get('confirm-dialog').createRenameDialog(this.onRenameFeature,
-                'Rename feature',
-                'Feature name',
+            this.get('confirm-dialog').createRenameDialog(this.renameFeature,
+                'Feature',
                 featureId,
                 feature.get('name')
             );
@@ -44,9 +29,9 @@ export default Controller.extend({
     
     createDeleteDialog(featureId) {
         this.get('store').findRecord('feature', featureId).then(feature => {
-            this.get('confirm-dialog').createDeleteDialog(this.onDeleteFeature,
-                'Delete feature',
-                'This will remove "' + feature.get('name') + '". Continue?',
+            this.get('confirm-dialog').createDeleteDialog(this.deleteFeature,
+                'Feature',
+                feature.get('name'),
                 featureId
             );
         });
@@ -64,45 +49,6 @@ export default Controller.extend({
         onDeleteFeature(featureId) {
             this.createDeleteDialog(featureId);
         },
-
-        /*onCreateFeature(name) {
-            this.createFeature(name);
-        },
-        
-        onRenameFeature(featureId, name) {
-            this.renameFeature(featureId, name);
-        },
-        
-        onDeleteFeature(featureId) {
-            this.deleteFeature(featureId);
-        },*/
-
-        onShowTextDialog() {
-            this.set('dialog.component', 'text-confirm-dialog');
-            this.set('dialog.info.title', 'Text Dialog');
-            this.set('dialog.info.text', 'Text Dialog text.');
-            this.set('dialog.info.value', '');
-            this.set('dialog.info.okButton', 'OK');
-            this.set('dialog.info.cancelButton', 'Cancel');
-            this.set('dialog.action', this.onTextDialogConfirmed);
-            this.showDialog();
-        },
-
-        onShowInputDialog() {
-            this.set('dialog.component', 'input-confirm-dialog');
-            this.set('dialog.info.title', 'Input Dialog');
-            this.set('dialog.info.text', 'Input Dialog text.');
-            this.set('dialog.info.value', 'Test');
-            this.set('dialog.info.okButton', 'OK');
-            this.set('dialog.info.cancelButton', 'Cancel');
-            this.set('dialog.action', this.onInputDialogConfirmed);
-            this.showDialog();
-        },
-        
-        onDialogConfirmed() {
-            this.get('logger').log('onDialogConfirmed(): Back in controller. Text was: '
-                                    + this.get('dialog.info.text'));
-        }
     },
 
     createFeature(name) {

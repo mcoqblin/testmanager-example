@@ -7,35 +7,20 @@ export default Controller.extend({
     dialogAction: computed('confirm-dialog.action', function() {
         let action = this.get('confirm-dialog.action');
         if (action === null)
-            return this.get('onCreateTest');
+            return this.get('createTest');
         return action;
     }),
 
-    onCreateTest(name) {
-        this.get('logger').log('Reached onCreateTest with name: ' + name);
-    },
-
-    onRenameTest(name, testId) {
-        this.get('logger').log('Reached onRenameTest with ID: ' + testId
-                                + ' and new name: ' + name);
-    },
-
-    onDeleteTest(testId) {
-        this.get('logger').log('Reached onDeleteTest with ID: ' + testId);
-    },
-
     createCreateDialog() {
-        this.get('confirm-dialog').createCreateDialog(this.onCreateTest,
-            'Create a new test',
-            'Test name'
+        this.get('confirm-dialog').createCreateDialog(this.createTest,
+            'Test',
         );
     },
     
     createRenameDialog(testId) {
         this.get('store').findRecord('test', testId).then(test => {
-            this.get('confirm-dialog').createRenameDialog(this.onRenameTest,
-                'Rename test',
-                'Test name',
+            this.get('confirm-dialog').createRenameDialog(this.renameTest,
+                'Test',
                 testId,
                 test.get('name')
             );
@@ -45,9 +30,9 @@ export default Controller.extend({
     
     createDeleteDialog(testId) {
         this.get('store').findRecord('test', testId).then(test => {
-            this.get('confirm-dialog').createDeleteDialog(this.onDeleteTest,
-                'Delete test',
-                'This will remove "' + test.get('name') + '". Continue?',
+            this.get('confirm-dialog').createDeleteDialog(this.deleteTest,
+                'Test',
+                test.get('name'),
                 testId
             );
         });
@@ -70,18 +55,6 @@ export default Controller.extend({
         onDeleteTest(testId) {
             this.createDeleteDialog(testId);
         },
-
-        /*onCreateTest(featureId, name) {
-            this.createTest(featureId, name);
-        },
-
-        onRenameTest(testId, name) {
-            this.renameTest(testId, name);
-        },
-
-        onDeleteTest(testId) {
-            this.deleteTest(testId);
-        }*/
     },
 
     changeTestStatus(testId, status) {

@@ -1,7 +1,6 @@
 <div class="title">Features</div>
 
-{{input type="text" placeholder="Feature name" value=newName}}
-<button type="button" class="create-button" onclick={{action "onCreateFeature"}}>Create Feature</button>
+<button type="button" class="create-button" onclick={{action "onCreateFeature"}}>Create a Feature</button>
 
 {{log-window}}
 
@@ -17,7 +16,7 @@
 </tr>
 {{#each model as |feature|}}
 <tr class="feature-entry">
-    <td>{{#link-to "feature" feature.id class="feature-list-link"}}{{feature.name}}{{/link-to}}</td>
+    <td>{{#link-to "feature" feature.id class="feature-list-link"}}{{trim-name feature.name}}{{/link-to}}</td>
     <td>{{feature.tests.length}}</td>
     <td>
         <button type="button" class="action-button" onclick={{action "onRenameFeature" feature.id}}>Rename</button>

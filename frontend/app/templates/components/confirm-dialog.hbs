@@ -1,4 +1,8 @@
-Title: {{info.title}}<br>
-{{yield}}
-<button type="button" onclick={{action "onConfirm"}}>{{info.okButton}}</button>
-<button type="button" onclick={{action "onCancel"}}>{{info.cancelButton}}</button>
+<div class="dialog">
+    <div class="dialog-title">{{info.title}}</div>
+    <div class="dialog-content">{{yield}}</div>
+    <div class="dialog-buttons">
+        <button type="button" onclick={{action "onConfirm"}}>{{info.okButton}}</button>
+        <button type="button" onclick={{action "onCancel"}}>{{info.cancelButton}}</button>
+    </div>
+</div>

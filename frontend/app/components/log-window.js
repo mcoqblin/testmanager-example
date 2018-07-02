@@ -3,7 +3,7 @@ import { computed, observer } from '@ember/object';
 
 export default Component.extend({
     classNames: ['log-window'],
-    classNameBindings: ['logStatusClassName','showLog:show-log:hide-log'],
+    classNameBindings: ['logStatusClassName','showLog'],
 
     showLog: false,
 

@@ -5,6 +5,10 @@ export default Route.extend({
         return this.get('store').findRecord('feature', params.feature_id, { include: 'tests' });
     },
 
+    afterModel(model) {
+        this.get('page-title').setTitle(model.name);
+    },
+
     actions: {
         error(error) {
             if (!error.errors) {

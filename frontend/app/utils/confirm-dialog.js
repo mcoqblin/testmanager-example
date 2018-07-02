@@ -1,5 +1,7 @@
 import EmberObject from '@ember/object';
 
+const MAX_NAME_LENGTH = 100;
+
 export default EmberObject.extend({
   isShown: false,
   component: 'text-confirm-dialog',
@@ -15,6 +17,10 @@ export default EmberObject.extend({
   data: {
     id: 0,
     value: ''
+  },
+
+  trimName(name) {
+    return this.get('trim-name').trimNameSimple(name, MAX_NAME_LENGTH);
   },
 
   showDialog() {
@@ -47,15 +53,42 @@ export default EmberObject.extend({
     this.showDialog();
   },
 
-  createCreateDialog(action, title, text) {
-    this.createDialog('input-confirm-dialog', action, title, text, 'OK', 'Cancel', 0, '');
+  createCreateDialog(action, what) {
+    this.createDialog(
+      'input-confirm-dialog',
+      action,
+      'Create ' + what,
+      what + ' name',
+      'OK',
+      'Cancel',
+      0,
+      ''
+    );
   },
 
-  createRenameDialog(action, title, text, id, value) {
-    this.createDialog('input-confirm-dialog', action, title, text, 'OK', 'Cancel', id, value);
+  createRenameDialog(action, what, id, value) {
+    this.createDialog(
+      'input-confirm-dialog',
+      action,
+      'Rename ' + what,
+      what + ' name',
+      'OK',
+      'Cancel',
+      id,
+      value
+    );
   },
 
-  createDeleteDialog(action, title, text, id) {
-    this.createDialog('text-confirm-dialog', action, title, text, 'OK', 'Cancel', id, '');
+  createDeleteDialog(action, what, name, id) {
+    this.createDialog(
+      'text-confirm-dialog',
+      action,
+      'Delete ' + what,
+      'This will delete "' + this.trimName(name) + '". Continue?',
+      'OK',
+      'Cancel',
+      id,
+      ''
+    );
   }
 });
