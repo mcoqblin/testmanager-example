@@ -1,12 +1,77 @@
 import Controller from '@ember/controller';
+import { computed } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 
 export default Controller.extend({
+    dialogComponent: oneWay('confirm-dialog.component'),
+    dialogAction: computed('confirm-dialog.action', function() {
+        let action = this.get('confirm-dialog.action');
+        if (action === null)
+            return this.get('onCreateTest');
+        return action;
+    }),
+
+    onCreateTest(name) {
+        this.get('logger').log('Reached onCreateTest with name: ' + name);
+    },
+
+    onRenameTest(name, testId) {
+        this.get('logger').log('Reached onRenameTest with ID: ' + testId
+                                + ' and new name: ' + name);
+    },
+
+    onDeleteTest(testId) {
+        this.get('logger').log('Reached onDeleteTest with ID: ' + testId);
+    },
+
+    createCreateDialog() {
+        this.get('confirm-dialog').createCreateDialog(this.onCreateTest,
+            'Create a new test',
+            'Test name'
+        );
+    },
+    
+    createRenameDialog(testId) {
+        this.get('store').findRecord('test', testId).then(test => {
+            this.get('confirm-dialog').createRenameDialog(this.onRenameTest,
+                'Rename test',
+                'Test name',
+                testId,
+                test.get('name')
+            );
+        });
+        
+    },
+    
+    createDeleteDialog(testId) {
+        this.get('store').findRecord('test', testId).then(test => {
+            this.get('confirm-dialog').createDeleteDialog(this.onDeleteTest,
+                'Delete test',
+                'This will remove "' + test.get('name') + '". Continue?',
+                testId
+            );
+        });
+        
+    },
+
     actions: {
         onTestStatusChanged(testId, status) {
             this.changeTestStatus(testId, status);
         },
 
-        onCreateTest(featureId, name) {
+        onCreateTest() {
+            this.createCreateDialog();
+        },
+
+        onRenameTest(testId) {
+            this.createRenameDialog(testId);
+        },
+
+        onDeleteTest(testId) {
+            this.createDeleteDialog(testId);
+        },
+
+        /*onCreateTest(featureId, name) {
             this.createTest(featureId, name);
         },
 
@@ -16,7 +81,7 @@ export default Controller.extend({
 
         onDeleteTest(testId) {
             this.deleteTest(testId);
-        }
+        }*/
     },
 
     changeTestStatus(testId, status) {
@@ -57,10 +122,12 @@ export default Controller.extend({
         });*/
     },
 
-    createTest(featureId, name) {
+    createTest(name) {
         let logger = this.get('logger');
         let store = this.get('store');
         let defaultStatus = this.get('status-tools').get('defaultStatus');
+
+        let featureId = this.get('model').get('id');
 
         if ((typeof name) !== 'string')
             name = '';
@@ -82,7 +149,7 @@ export default Controller.extend({
         });
     },
 
-    renameTest(testId, name) {
+    renameTest(name, testId) {
         let logger = this.get('logger');
 
         if ((typeof name) !== 'string')

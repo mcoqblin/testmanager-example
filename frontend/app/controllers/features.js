@@ -1,14 +1,15 @@
 import Controller from '@ember/controller';
-import { alias } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 
 export default Controller.extend({
-    dialogComponent: alias('confirm-dialog.component'),
-    dialogAction: alias('confirm-dialog.action'),
-
-    init() {
-        this._super(arguments);
-        this.set('dialogAction', this.get('onCreateFeature'));
-    },
+    dialogComponent: oneWay('confirm-dialog.component'),
+    dialogAction: computed('confirm-dialog.action', function() {
+        let action = this.get('confirm-dialog.action');
+        if (action === null)
+            return this.get('onCreateFeature');
+        return action;
+    }),
 
     onCreateFeature(name) {
         this.get('logger').log('Reached onCreateFeature with name: ' + name);
@@ -123,7 +124,7 @@ export default Controller.extend({
         });
     },
 
-    renameFeature(featureId, name) {
+    renameFeature(name, featureId) {
         let logger = this.get('logger');
 
         if ((typeof name) !== 'string')

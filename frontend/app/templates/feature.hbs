@@ -3,9 +3,11 @@
 <div class="title">{{model.name}}</div>
 
 {{input type="text" placeholder="Test name" value=newName}}
-<button type="button" class="create-button" onclick={{action "onCreateTest" model.id newName}}>Create Test</button>
+<button type="button" class="create-button" onclick={{action "onCreateTest"}}>Create Test</button>
 
 {{log-window}}
+
+{{component dialogComponent onConfirm=(action dialogAction)}}
 
 <div class="list">
 {{#if model.tests}}
@@ -23,7 +25,7 @@
         status=test.validStatus
         onTestStatusChanged=(action "onTestStatusChanged")}}</td>
     <td>
-        <button type="button" class="action-button" onclick={{action "onRenameTest" test.id newName}}>Rename</button>
+        <button type="button" class="action-button" onclick={{action "onRenameTest" test.id}}>Rename</button>
         <button type="button" class="action-button" onclick={{action "onDeleteTest" test.id}}>Delete</button>
     </td>
 </tr>
