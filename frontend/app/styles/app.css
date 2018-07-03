@@ -24,12 +24,19 @@ body {
     text-decoration: none;
 }
 
-.title {
-    font-size: 2.5em;
+.features-title, .feature-title {
     padding-top: 12px;
     padding-left: 30px;
     padding-right: 30px;
     font-weight: bold;
+}
+
+.features-title {
+    font-size: 2.5em;
+}
+
+.feature-title {
+    font-size: 1.75em;
 }
 
 .list {
