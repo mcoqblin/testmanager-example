@@ -5,13 +5,3 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-feature1 = Feature.create(name: "Feature 1")
-feature2 = Feature.create(name: "Feature 2")
-
-Test.create(name: "Test 1", state: 0, feature: feature1)
-Test.create(name: "Test 2", state: 0, feature: feature1)
-Test.create(name: "Test 3", state: 0, feature: feature1)
-Test.create(name: "Test 1", state: 0, feature: feature2)
-Test.create(name: "Test 2", state: 0, feature: feature2)
-Test.create(name: "Test 3", state: 0, feature: feature2)
